@@ -1,7 +1,4 @@
-const { query } = require("express")
-const { schema } = require("../model/ProductSchema")
-
-const validate = (req,res,next) => {
+const validate = Schema => (req,res,next) => {
 
     try
     {

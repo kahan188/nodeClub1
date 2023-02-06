@@ -1,5 +1,6 @@
 const StudentSchema = require('../model/StudentSchema');
-const addStudent = (req, res) => {
+
+module.exports.addStudent = (req, res) => {
 
     const student = new StudentSchema(req.body)
     student.save((err,data)=>{
@@ -38,7 +39,7 @@ const addStudent = (req, res) => {
 
     // }
 
-    const getAllStudents = (req,res)=>{
+    module.exports.getAllStudents = (req,res)=>{
 
         StudentSchema.find({type:"63bbf4a78ae2b82963967b8f"}).populate('type').exec((err,data)=>{
 
@@ -59,7 +60,7 @@ const addStudent = (req, res) => {
 
 
     }
-    const studentGetById = (req,res)=>{
+   module.exports.studentGetById = (req,res)=>{
 
     var id = req.params.id;
     StudentSchema.findById(req.params.id,(err,data)=>{
@@ -85,7 +86,7 @@ const addStudent = (req, res) => {
         }
     })
     }
-    const updateStudent =(req,res)=>{
+    modules.exports.updateStudent =(req,res)=>{
 
     var id = req.params.id;
     StudentSchema.findByIdAndUpdate(id,req.body,(err,data)=>{
@@ -117,30 +118,24 @@ const addStudent = (req, res) => {
 
 
         }
-        const deleteStudent = (req,res)=>{
+        modules.exports.deleteStudent =(req,res) =>{
 
-        StudentSchema.findByIdAndDelete(req.params.id,(err,data)=>{
-            if(err){
-                res.status(500).json({
-                    message: "Some error occurred while deleting students.",
-                    error: err.message
-                })
-            }
-            else{
-                res.status(200).json({
-                    message: "Students deleted successfully",
-                    data: data
-                })
-            }
-        })
+            StudentSchema.findByIdAndDelete(req.params.id,(err,data)=>{
+                if(err){
+                    res.status(500).json({
+                        message: "Some error occurred while deleting students.",
+                        error: err.message
+                    })
+                }
+                else{
+                    res.status(200).json({
+                        message: "Students deleted successfully",
+                        data: data
+                    })
+                }
+            })
+    
     }
 
 }
 
-module.exports = {
-    addStudent,
-    getAllStudents,
-    studentGetById,
-    deleteStudent,
-    updateStudent
-}
